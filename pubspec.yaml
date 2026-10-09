@@ -1,3 +1,5 @@
+  url_launcher: ^6.2.5
+  shared_preferences: ^2.2.2
 name: bsl_war_app
 description: "Liberation War Theme App"
 publish_to: 'none'
