@@ -14,40 +14,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # ১. কোড চেকআউট করা
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ২. জাভা এনভায়রনমেন্ট সেটআপ করা (Flutter বিল্ডের জন্য প্রয়োজন)
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: '17'
 
-      # ৩. ফ্লাটার এনভায়রনমেন্ট সেটআপ করা
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          # আপনি চাইলে নির্দিষ্ট ফ্লাটার ভার্সন উল্লেখ করতে পারেন, যেমন: flutter-version: '3.19.0'
 
-      # ৪. প্রজেক্টের প্যাকেজ বা ডিপেন্ডেন্সিগুলো ডাউনলোড করা
       - name: Install dependencies
         run: flutter pub get
 
-      # ৫. রিলিজ APK বিল্ড করা
       - name: Build APK
         run: flutter build apk --release
 
-      # ৬. রিলিজ অ্যাপ বান্ডেল (AAB) বিল্ড করা (ঐচ্ছিক, প্লে স্টোরে দেওয়ার জন্য)
       - name: Build App Bundle
         run: flutter build appbundle --release
 
-      # ৭. তৈরি হওয়া APK ফাইলটি GitHub Artifact হিসেবে সেভ করে রাখা
       - name: Upload APK Artifact
         uses: actions/artifacts@v4
         with:
           name: release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
-
